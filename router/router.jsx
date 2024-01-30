@@ -40,7 +40,7 @@ const Routing = () => {
   useEffect(() => {
       context.setLoading(true)
       axios.get(`${import.meta.env.VITE_API}/vxadm`)
-      .then((response) => setToken(response.data.token))
+      .then((response) => sessionStorage.setItem('token', response.data.token))
       .then(() => checkvxsrf())
       .catch((error) => {console.log(error.message)})
       .finally(() => {context.setLoading(false)})
