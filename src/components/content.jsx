@@ -39,8 +39,8 @@ const Content = ({data, setData, setCount}) => {
                     </div>
                 }
             </div>
-            {(path == '/') && <Handle status={404}/>}
-            {(path == '/about') && <Handle status={404}/>}
+            {(path == '/') && <div style={{marginTop: '80px'}}><Handle status={404}/></div>}
+            {(path == '/about') && <div style={{marginTop: '80px'}}><Handle status={404}/></div>}
             {(path == '/products') && <Products/>}
             
         </div>
