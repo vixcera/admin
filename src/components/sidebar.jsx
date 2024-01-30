@@ -47,10 +47,10 @@ const Sidebar = () => {
                 <div className="botside">
                     {(token !== 'undefined') ? 
                     <>
-                    <NavLink onClick={() => logout()} className={a => (a.isActive) ? "sidelist" : "sidelist"} >
+                    <div onClick={() => logout()} className={a => (a.isActive) ? "sidelist" : "sidelist"} >
                         <div className="fa-solid fa-right-from-bracket fa-xl"/>
                         <div className="sidetext">Log out</div>
-                    </NavLink>
+                    </div>
                     </>
                     : 
                     <NavLink className={a => (a.isActive) ? "sidelist" : "sidelist"} to="/login">
