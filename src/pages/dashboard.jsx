@@ -18,7 +18,7 @@ const Dashboard = () => {
     const checkAdmin = async () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
-                headers: { authorization: `bearer ${context.token}` }
+                headers: { "authorization": `bearer ${context.token}` }
             })
             setData(response.data)
         } catch (error) {
