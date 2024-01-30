@@ -31,9 +31,9 @@ const Routing = () => {
   useEffect(() => {
     if (token) {
       const decoded = jwt_decode(token)
+      console.log(decoded)
       setEmail(decoded.email)
       setExpires(decoded.exp)
-      if (!decoded.img) setImg('/img/dui.jpg')
     } 
   }, [token])
 
