@@ -101,7 +101,7 @@ const Content = ({data, setData, setCount}) => {
             </div> */}
             </div>
             }
-            {(path == '/products') && <Dashboard/>}
+            {path == '/products' && (<Dashboard/>)}
             
         </div>
     )
