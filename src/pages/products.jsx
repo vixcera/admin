@@ -15,7 +15,8 @@ const Products = () => {
 
     const navigate = useNavigate()
     const [ data, setData ] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [ loading, setLoading ] = useState(false)
+    const [ error, setError ] = useState(false)
     const token = sessionStorage.getItem('token')
     
     const checkAdmin = async () => {
@@ -34,7 +35,7 @@ const Products = () => {
     useEffect(() => { checkAdmin() }, [])
 
     return (
-        <div className='product-page' style={{paddingTop : '0'}}>
+        <div className='product-page'>
             <div className='product-container'>
                 {(loading) ? (<Swaload.Product/>) : 
                 data.map((i, k) => {

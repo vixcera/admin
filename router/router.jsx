@@ -7,7 +7,6 @@ import Main from "../src/pages/main"
 import Login from "../src/pages/login"
 import Context from "../utils/context"
 import Wetails from "../src/pages/wetails"
-import Dashboard from "../src/pages/products"
 import checkvxsrf from "../service/checkvxsrf"
 
 const Routing = () => {
