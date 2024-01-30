@@ -106,8 +106,8 @@ const Wetails = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="button-max" onClick={() => confirm()} style={{ marginTop: '30px', fontWeight: 'bold', backgroundColor: 'var(--yellow)' }}>Approve</div>
-                        <div className="button-max" onClick={() => reject()} style={{ marginTop: '5px', fontWeight: 'bold', backgroundColor: '#aaa' }}>Reject</div>
+                        <div className="button-max" onClick={() => confirm()} style={{ marginTop: '30px', backgroundColor: 'var(--yellow)' }}>Approve</div>
+                        <div className="button-max" onClick={() => reject()} style={{ marginTop: '5px', backgroundColor: '#aaa' }}>Reject</div>
                         </>
                         )
                     })}
