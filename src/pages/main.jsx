@@ -4,7 +4,7 @@ import Navbar from "../components/navbar"
 import Content from "../components/content"
 import Sidebar from "../components/sidebar"
 import { useEffect, useState } from "react"
-import "../../style/main.css"
+import "../style/main.css"
 
 const Main = () => {
 
