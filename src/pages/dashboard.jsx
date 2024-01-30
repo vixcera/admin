@@ -34,33 +34,31 @@ const Dashboard = () => {
     if (loading) return <Loading/>
 
     return (
-        <div className='page-max' style={{flexDirection: 'column', justifyContent: 'unset'}}>
-            <div className='product-page'>
-                <div className='product-container'>
-                <input type="text" className='search'/>
-                    {data.map((i, k) => {
-                            return(
-                            <div className='product-card' key={k}>
-                                <LazyLoadImage className='product-img' onClick={() => navigate(`/waiting/details/${i.vid}`)} src={(i.img) || ('img/img404.jpg')} loading='lazy' effect='blur'/>
-                                <div className='wrapped-text'>
-                                    <div className='product-title'>{i.title}</div>
-                                    <div style={{ display: 'flex', flexWrap : 'wrap', flexDirection : 'column'}}>
-                                        <div className='product-desc'>{i.desc.length >= 40 ? i.desc.substring(0,40) + '...' : i.desc}</div>
-                                        <div className='wrapdet' style={{ position: 'unset', marginTop: '15px', marginLeft: '5px', gap: '5px' }}>
-                                            <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech}</div>
-                                            <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech.toLowerCase().includes('html') ? "only" : 'JS'}</div>
-                                         </div>
-                                    </div>
-                                    <div className='wrapped-details'>
-                                        <div className='button price'>{convertPrice(i.price)}</div>
-                                        <div style={{ color : 'var(--text)', cursor: 'pointer'}} onClick={() => navigate(`/order/${i.vid}`)} className='fa-solid fa-cart-plus fa-xl' />
-                                    </div>
+        <div className='product-page'>
+            <div className='product-container'>
+            <input type="text" className='search'/>
+                {data.map((i, k) => {
+                        return(
+                        <div className='product-card' key={k}>
+                            <LazyLoadImage className='product-img' onClick={() => navigate(`/waiting/details/${i.vid}`)} src={(i.img) || ('img/img404.jpg')} loading='lazy' effect='blur'/>
+                            <div className='wrapped-text'>
+                                <div className='product-title'>{i.title}</div>
+                                <div style={{ display: 'flex', flexWrap : 'wrap', flexDirection : 'column'}}>
+                                    <div className='product-desc'>{i.desc.length >= 40 ? i.desc.substring(0,40) + '...' : i.desc}</div>
+                                    <div className='wrapdet' style={{ position: 'unset', marginTop: '15px', marginLeft: '5px', gap: '5px' }}>
+                                        <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech}</div>
+                                        <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech.toLowerCase().includes('html') ? "only" : 'JS'}</div>
+                                     </div>
+                                </div>
+                                <div className='wrapped-details'>
+                                    <div className='button price'>{convertPrice(i.price)}</div>
+                                    <div style={{ color : 'var(--text)', cursor: 'pointer'}} onClick={() => navigate(`/order/${i.vid}`)} className='fa-solid fa-cart-plus fa-xl' />
                                 </div>
                             </div>
-                            )
-                        })
-                    }
-                </div>
+                        </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
