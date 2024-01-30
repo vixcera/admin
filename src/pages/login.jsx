@@ -3,8 +3,9 @@ import Context from "../../utils/context"
 import Loading from "../../utils/loading"
 import swalert from "../../utils/swalert"
 import getvxsrf from '../../service/getvxsrf'
+import Topback from "../components/topback"
 import { useContext, useEffect, useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import "../style/login.css"
 import "../style/navbar.css"
 
@@ -42,6 +43,7 @@ const Login = () => {
 
     return(
         <div className="page">
+            <Topback/>
             <div className="login-box">
                 <div className="login-top">
                     <div className="title"><span>Vixcera</span></div>
