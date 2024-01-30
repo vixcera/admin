@@ -64,9 +64,10 @@ const Wetails = () => {
       
     useEffect(() => getData(), [])
     if (loading) return <Loading/>
-    if (status !== 200) return <Handle status={status}/>
 
     return (
+        <>
+        {(status !== 200) && (<div className="page"><Handle status={status}/></div>)}
         <div className='page-max'>
             <div className="back" onClick={() => navigate(-1)}>
                 <div className="fa-solid fa-arrow-left fa-xl active"></div>
@@ -113,6 +114,7 @@ const Wetails = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
