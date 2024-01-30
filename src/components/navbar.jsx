@@ -50,6 +50,7 @@ const Navbar = ({ count }) => {
 
   const logout = async () => {
     const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+    sessionStorage.removeItem('token')
     swalert(response.data)
     .then((res) => res.dismiss && location.reload())
   }
