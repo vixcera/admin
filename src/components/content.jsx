@@ -1,6 +1,6 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import Dashboard from "../pages/dashboard"
 import swalert from "../../utils/swalert"
 import Context from "../../utils/context"
@@ -13,33 +13,18 @@ const Content = ({data, setData, setCount}) => {
     const navigate = useNavigate()
     const context = useContext(Context)
 
-    const repay = (token, id, status) => {
-        if (status === 'settlement') { navigate(`/transaction/success/${id}`) }
-        if (status !== "expire" && status !== 'settlement') {
-            window.snap.pay(token, {
-                onSuccess : () => { window.location.href = `/transaction/success/${id}`}
-            })
-        }
-    }
+    const [data, setData] = useState([])
 
-    const deleteNotification = async (id) => {
+    const getAllProduct = async () => {
         try {
-            context.setLoading(true)
-            const response = await axios.get(`${import.meta.env.VITE_API}/transaction/delete/${id}`)
-            setData((prev) => {
-                const update = prev.filter((data) => data.order_id !== id)
-                setCount(update.length)
-                return update
+            const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
+                headers: { "authorization": `bearer ${token}` }
             })
-            swalert(response.data, "success", 1200)
+            setData(response.data)
         } catch (error) {
-            if (error || error.response) {
-                swalert(error.response.data, "error", 1200)
-            }
-        } finally {
-            context.setLoading(false)
+            swalert(error.response)
+            .then((res) => res.dismiss && navigate('/login'))
         }
-            
     }
 
     return (
@@ -57,11 +42,11 @@ const Content = ({data, setData, setCount}) => {
                             return (
                                 <div className="notification-box" key={k}>
                                     <LazyLoadImage src="/img/vixcera.png" className="nimg" style={{width: '30px'}} loading="lazy" effect="blur"/>
-                                    <div onClick={() => repay(i.transaction_token, i.order_id, i.transaction_status)} className="text-container" style={{ padding: '0', margin: '0', gap: '4px', width: '90%', cursor: 'pointer' }}>
+                                    <div className="text-container" style={{ padding: '0', margin: '0', gap: '4px', width: '90%', cursor: 'pointer' }}>
                                         <div className="text">{i.transaction_status == "settlement" ? 'success' : i.transaction_status} transaction</div>
                                         <p style={{ fontSize: '0.8rem' }}><span style={{fontFamily: 'var(--poppins)'}}>Order ID : {i.order_id}</span></p>
                                     </div>
-                                    <div className="close" onClick={() => deleteNotification(i.order_id)}>
+                                    <div className="close">
                                         <div className="fa-solid fa-close fa-xl" style={{color: 'var(--second)'}}/>
                                     </div>
                                 </div>
@@ -71,37 +56,35 @@ const Content = ({data, setData, setCount}) => {
                 }
             </div>
             {(path == '/') && <div/>}
-            {(path == '/about') &&
-            <div>
-                {(about.map((i,k) => {
-                return(
-                    <div className="service" style={{paddingTop: '20px'}} key={k}>
-                        <div className="itext"><span>{i.ctg}</span> Vixcera</div>
-                        {i.data.map((p, l) => 
-                            <div className="sbox" key={l} style={{borderRight : `2px solid ${p.color}`}}>
-                                <div className="image-container" style={{backgroundColor : `${p.color}`}}>
-                                    {p.img && <LazyLoadImage src={p.img} className="simg" style={{width: '50px'}} loading="lazy" effect="blur"/>}
-                                </div>
-                                <div className="text-container">
-                                    <h3>{p.title}</h3>
-                                    <p>{p.text}</p>
-                                    <div className="wrapdet">{p.pricing && p.pricing.map((s, l) => {return(<div key={l}>{s}</div>)})}</div>
+            {(path == '/about') && <div/>}
+            {(path == '/products') && 
+            <div className='product-page'>
+                <div className='product-container'>
+                <input type="text" className='search'/>
+                    {data.map((i, k) => {
+                            return(
+                            <div className='product-card' key={k}>
+                                <LazyLoadImage className='product-img' onClick={() => navigate(`/waiting/details/${i.vid}`)} src={(i.img) || ('img/img404.jpg')} loading='lazy' effect='blur'/>
+                                <div className='wrapped-text'>
+                                    <div className='product-title'>{i.title}</div>
+                                    <div style={{ display: 'flex', flexWrap : 'wrap', flexDirection : 'column'}}>
+                                        <div className='product-desc'>{i.desc.length >= 40 ? i.desc.substring(0,40) + '...' : i.desc}</div>
+                                        <div className='wrapdet' style={{ position: 'unset', marginTop: '15px', marginLeft: '5px', gap: '5px' }}>
+                                            <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech}</div>
+                                            <div style={{ backgroundColor: 'var(--background)', width: '95px', height: '30px' }}>{i.tech.toLowerCase().includes('html') ? "only" : 'JS'}</div>
+                                         </div>
+                                    </div>
+                                    <div className='wrapped-details'>
+                                        <div className='button price'>{convertPrice(i.price)}</div>
+                                        <div style={{ color : 'var(--text)', cursor: 'pointer'}} onClick={() => navigate(`/order/${i.vid}`)} className='fa-solid fa-cart-plus fa-xl' />
+                                    </div>
                                 </div>
                             </div>
-                        )}
-                    </div>)
-            }))}
-            {/* <div className="developer">
-                <img src="/img/dimasputra.png" alt="" className="dimasputra"/> 
-                <div className="text-wrapper">
-                <div>Vixcera Developer</div>
-                <div>Dimas Putra Utama</div>
-                <div className="button contact" onClick={() => navigate('/dashboard')}>Contact</div>
+                            )
+                        })
+                    }
                 </div>
-            </div> */}
-            </div>
-            }
-            {(path == '/products') && (() => {return <Dashboard/>})}
+            </div>}
             
         </div>
     )
