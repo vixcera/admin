@@ -5,6 +5,7 @@ import convertPrice from '../../utils/price'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {LazyLoadImage} from "react-lazy-load-image-component"
+import Navbar from "../components/navbar"
 import "../style/create.css"
 import "../style/content.css"
 import "../style/product.css"
@@ -34,10 +35,7 @@ const Dashboard = () => {
 
     return (
         <div className='page-max'>
-            <div className="back" onClick={() => location.href = '/'}>
-                <div className="fa-solid fa-arrow-left fa-xl active"></div>
-                <div className="nav-logo" style={{fontFamily: 'var(--caveat)'}}>Vixcera</div>
-            </div>
+            <Navbar/>
             <div className='product-page'>
                 <div className='product-container'>
                 <input type="text" className='search'/>
