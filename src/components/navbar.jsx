@@ -6,7 +6,7 @@ import axios from "axios"
 import swalert from "../../utils/swalert"
 import "../style/navbar.css"
 
-const Navbar = ({ count }) => {
+const Navbar = () => {
   
   const navigate = useNavigate()
   const context = useContext(Context)

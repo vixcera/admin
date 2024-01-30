@@ -6,7 +6,7 @@ import Handle from "../../service/handle"
 import Context from "../../utils/context"
 import "../style/content.css"
 
-const Content = ({data, setData, setCount}) => {
+const Content = () => {
 
     const path = location.pathname
     const navigate = useNavigate()
