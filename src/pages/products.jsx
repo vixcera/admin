@@ -36,9 +36,10 @@ const Products = () => {
     useEffect(() => { checkAdmin() }, [])
 
     return (
+        <>
+        {(status !== 200) && (<Handle status={status}/>)}
         <div className='product-page'>
             <div className='product-container'>
-                {(status !== 200) && (<Handle status={status}/>)}
                 {(loading) ? (<Swaload.Product/>) : 
                 data.map((i, k) => {
                         return(
@@ -64,6 +65,7 @@ const Products = () => {
                 }
             </div>
         </div>
+        </>
     )
 }
 
