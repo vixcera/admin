@@ -3,7 +3,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component"
 
 const Handle = ({ status }) => {
     return(
-        <div className="page" style={{flexDirection: 'column', gap: '30px'}}>
+        <div className="page-max" style={{flexDirection: 'column', gap: '30px'}}>
             {(status == 404) ? (
                 <>
                 <LazyLoadImage src="/img/404page.png" effect="blur" loading="lazy" style={{width: '250px'}}/>
