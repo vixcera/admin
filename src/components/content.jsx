@@ -15,8 +15,8 @@ const Content = ({data, setData, setCount}) => {
     return (
         <div className="content">
             <div className="grep"/>
-            {(path == '/') && <div style={{marginTop: '100px'}}><Handle status={404}/></div>}
-            {(path == '/about') && <div style={{marginTop: '100px'}}><Handle status={404}/></div>}
+            {(path == '/') && <div style={{marginTop: '80px'}}><Handle status={404}/></div>}
+            {(path == '/about') && <div style={{marginTop: '80px'}}><Handle status={404}/></div>}
             {(path == '/products') && <Products/>}
             
         </div>

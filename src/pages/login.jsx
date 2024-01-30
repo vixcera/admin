@@ -28,7 +28,7 @@ const Login = () => {
             const response = await axios.post(url, { email, password }, { headers: {'xsrf-token' : vxsrf} })
             sessionStorage.setItem('token', response.data.token)
             localStorage.removeItem('email')
-            navigate('/')
+            navigate('/products')
         }
         catch (error) {
             swalert("server maintenance!", "error")

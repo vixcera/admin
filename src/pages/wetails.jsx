@@ -30,7 +30,7 @@ const Wetails = () => {
                 headers: { authorization: `bearer ${token}` }
             })
             swalert(response.data, "success", 1500)
-            .then((res) => res.dismiss && navigate('/'))
+            .then(() => location.href = '/products')
         }   catch (error) {
             if (error || error.response) return swalert(error.response.data, "error")
         }   finally { setLoading(false) }
