@@ -34,7 +34,7 @@ const Dashboard = () => {
     if (loading) return <Loading/>
 
     return (
-        <div className='page-max'>
+        <div className='page-max' style={{flexDirection: 'column', gap: '50px'}}>
             <Navbar/>
             <div className='product-page'>
                 <div className='product-container'>
