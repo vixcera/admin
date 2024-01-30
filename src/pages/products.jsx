@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Navbar from "../components/navbar"
-import Loading from '../../utils/loading'
+import Swaload from "../../utils/swaload"
 import swalert from '../../utils/swalert'
 import convertPrice from '../../utils/price'
 import { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ import "../style/content.css"
 import "../style/product.css"
 import "../style/main.css"
 
-const Dashboard = () => {
+const Products = () => {
 
     const navigate = useNavigate()
     const [ data, setData ] = useState([])
@@ -20,6 +20,7 @@ const Dashboard = () => {
     
     const checkAdmin = async () => {
         try {
+            setLoading(true)
             const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
                 headers: { "authorization": `bearer ${token}` }
             })
@@ -27,17 +28,16 @@ const Dashboard = () => {
         } catch (error) {
             swalert(error.response)
             .then((res) => res.dismiss && navigate('/login'))
-        }
+        } finally {setLoading(false)}
     };
 
     useEffect(() => { checkAdmin() }, [])
-    if (loading) return <Loading/>
 
     return (
-        <div className='product-page'>
+        <div className='product-page' style={{paddingTop : '0'}}>
             <div className='product-container'>
-            <input type="text" className='search'/>
-                {data.map((i, k) => {
+                {(loading) ? (<Swaload.Product/>) : 
+                data.map((i, k) => {
                         return(
                         <div className='product-card' key={k}>
                             <LazyLoadImage className='product-img' onClick={() => navigate(`/waiting/details/${i.vid}`)} src={(i.img) || ('img/img404.jpg')} loading='lazy' effect='blur'/>
@@ -64,4 +64,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Products

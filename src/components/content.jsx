@@ -1,7 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
-import Dashboard from "../pages/dashboard"
+import Products from "../pages/products"
 import swalert from "../../utils/swalert"
 import Context from "../../utils/context"
 import axios from "axios"
@@ -43,7 +43,7 @@ const Content = ({data, setData, setCount}) => {
             </div>
             {(path == '/') && <div/>}
             {(path == '/about') && <div/>}
-            {(path == '/products') && <Dashboard/>}
+            {(path == '/products') && <Products/>}
             
         </div>
     )
