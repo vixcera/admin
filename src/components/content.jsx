@@ -13,7 +13,6 @@ const Content = ({data, setData, setCount}) => {
     const navigate = useNavigate()
     const context = useContext(Context)
 
-
     return (
         <div className="content">
             <div className="snap-container"></div>
