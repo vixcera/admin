@@ -13,19 +13,6 @@ const Content = ({data, setData, setCount}) => {
     const navigate = useNavigate()
     const context = useContext(Context)
 
-    const [data, setData] = useState([])
-
-    const getAllProduct = async () => {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
-                headers: { "authorization": `bearer ${token}` }
-            })
-            setData(response.data)
-        } catch (error) {
-            swalert(error.response)
-            .then((res) => res.dismiss && navigate('/login'))
-        }
-    }
 
     return (
         <div className="content">
