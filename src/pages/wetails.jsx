@@ -18,6 +18,7 @@ const Wetails = () => {
     const { vid } = useParams()
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const token = sessionStorage.getItem('token')
 
     const img = data.map((i) => { return i.img })
     const vxpwd = sessionStorage.getItem("vxpwd")
@@ -26,7 +27,7 @@ const Wetails = () => {
         try {
             setLoading(true)
             const response = await axios.get(`${import.meta.env.VITE_API}/product/confirm/${vid}`,{
-                headers: { authorization: `bearer ${context.token}` }
+                headers: { authorization: `bearer ${token}` }
             })
             swalert(response.data, "success", 1500)
             .then((res) => res.dismiss && navigate('/'))

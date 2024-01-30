@@ -1,25 +1,22 @@
 import axios from 'axios'
-import swal from "sweetalert2"
 import Loading from '../../utils/loading'
 import swalert from '../../utils/swalert'
 import convertPrice from '../../utils/price'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {LazyLoadImage} from "react-lazy-load-image-component"
-import Context from '../../utils/context'
 
 const Dashboard = () => {
 
     const navigate = useNavigate()
     const [ data, setData ] = useState([])
     const [loading, setLoading] = useState(false)
-    const context = useContext(Context)
-    console.log(context)
+    const token = sessionStorage.getItem('token')
     
     const checkAdmin = async () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
-                headers: { "authorization": `bearer ${context.token}` }
+                headers: { "authorization": `bearer ${token}` }
             })
             setData(response.data)
         } catch (error) {

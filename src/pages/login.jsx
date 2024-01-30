@@ -26,7 +26,7 @@ const Login = () => {
         try {
             setLoading(true)
             const response = await axios.post(url, { email, password }, { headers: {'xsrf-token' : vxsrf} })
-            context.setToken(response.data.token)
+            sessionStorage.setItem('token', response.data.token)
             localStorage.removeItem('email')
             navigate('/')
         }
