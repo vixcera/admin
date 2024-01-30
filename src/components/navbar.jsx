@@ -32,17 +32,6 @@ const Navbar = ({ count }) => {
       }
   }
 
-  const showNotification = () => {
-    const panel = document.querySelector('.notification-panel')
-    const wrap = document.querySelector('.notification-wrap')
-    panel.classList.toggle('show')
-    if (panel.classList.contains('show')) {
-      wrap.classList.add('show')
-    } else {
-      wrap.classList.remove('show')
-    }
-  }
-
   const handleSidebar = () => {
     const sidebar = document.querySelector('.sidebar')
     sidebar.classList.toggle('show')
@@ -81,7 +70,7 @@ const Navbar = ({ count }) => {
           }
         </div>  
         <div className="nav-user-mobile">
-          <div style={{ position: 'relative' }} onClick={() => showNotification()}>
+          <div style={{ position: 'relative' }}>
             <div className="i fa-solid fa-bell fa-xl"/>
             {(count != 0) && <div className="count">{count}</div>}
           </div>
