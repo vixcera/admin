@@ -3,31 +3,19 @@ import { useEffect, useState } from "react"
 import jwt_decode from "jwt-decode"
 import axios from "axios"
 
+import Main from "../src/pages/main"
 import Login from "../src/pages/login"
 import Context from "../utils/context"
 import Wetails from "../src/pages/wetails"
 import Dashboard from "../src/pages/dashboard"
 import checkvxsrf from "../service/checkvxsrf"
 
-
 const Routing = () => {
-
-  const axtoken = axios.create()
   
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [email, setEmail] = useState('')
-  const [expires, setExpires] = useState('')
   const [loading, setLoading] = useState(false)
   
-  axtoken.interceptors.request.use(async (config) => {
-    const current = new Date().getTime()
-    if (expires * 1000 < current) {
-      const response = await axios.get(`${import.meta.env.VITE_API}/vxrft`)
-      setToken(response.data.token)}
-      config.headers.Authorization = `bearer ${token}`
-      return config
-  }, (error) => { return Promise.reject(error) })
-
   useEffect(() => {
     if (token) {
       const decoded = jwt_decode(token)
@@ -46,13 +34,13 @@ const Routing = () => {
       .finally(() => {context.setLoading(false)})
   }, [])
 
-  const context = { email, token, setToken, axtoken, loading, setLoading}
+  const context = { email, token, setToken, loading, setLoading}
 
   return (
     <Context.Provider value={context}>
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/" element={<Main/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/waiting/details/:vid" element={<Wetails/>}/>
         </Routes>
