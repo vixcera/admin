@@ -35,7 +35,6 @@ const Dashboard = () => {
 
     return (
         <div className='page-max' style={{flexDirection: 'column', justifyContent: 'unset'}}>
-            <Navbar/>
             <div className='product-page'>
                 <div className='product-container'>
                 <input type="text" className='search'/>

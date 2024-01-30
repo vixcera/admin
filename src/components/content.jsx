@@ -1,6 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
+import Dashboard from "../pages/dashboard"
 import swalert from "../../utils/swalert"
 import Context from "../../utils/context"
 import axios from "axios"
@@ -69,46 +70,7 @@ const Content = ({data, setData, setCount}) => {
                     </div>
                 }
             </div>
-            {(path == '/') && 
-            <div>
-                {(context.token) ? 
-                <div className="developer">
-                    <img src="/img/pi.png" className="dimasputra" alt="" />
-                    <div className="text-wrapper">
-                    <div>Hi {context.username}!,</div>
-                    <div>Welcome back.</div>
-                    <div className="button contact" onClick={() => navigate('/profile')}>Account</div>
-                </div>
-                </div>
-                : 
-                <div className="developer">
-                    <img src="/img/pi.png" className="dimasputra" alt="" />
-                    <div className="text-wrapper">
-                    <div>Welcome to Vixcera</div>
-                    <div>Let's explore with us.</div>
-                    <div className="button contact" onClick={() => navigate('/register')}>Sign up</div>
-                    </div>
-                </div>}
-                {(vixcera.map((i,k) => {
-                return(
-                    <div className="service" style={{paddingTop: "40px"}} key={k}>
-                        <div className="itext"><span>{i.ctg}</span> Vixcera</div>
-                        {i.data.map((p, l) => 
-                            <div className="sbox" key={l} onClick={() => {p.ctg && navigate(`/product/${p.ctg}`)}} style={{borderRight : `2px solid ${p.color}`}}>
-                                <div className="image-container" style={{backgroundColor : `${p.color}`}}>
-                                    {p.img && <LazyLoadImage src={p.img} className="simg" style={{width: '60px'}} loading="lazy" effect="blur"/>}
-                                </div>
-                                <div className="text-container">
-                                    <h3>{p.title}</h3>
-                                    <p>{p.text}</p>
-                                    <div className="wrapdet">{p.pricing && p.pricing.map((s, l) => {return(<div key={l}>{s}</div>)})}</div>
-                                </div>
-                            </div>
-                        )}
-                    </div>)
-                }))}
-            </div>
-            }
+            {(path == '/') && <div/>}
             {(path == '/about') &&
             <div>
                 {(about.map((i,k) => {
@@ -139,37 +101,7 @@ const Content = ({data, setData, setCount}) => {
             </div> */}
             </div>
             }
-            {(path == '/products') && 
-            <div>
-                <div className="developer">
-                <img src="/img/cont.png" alt="" className="dimasputra"/> 
-                <div className="text-wrapper">
-                <div>Become a Contributor</div>
-                <div>Sell your best work</div>
-                <div className="button contact">Upcoming</div>
-                </div>
-                </div>
-                {(products.map((i,k) => {
-                    return(
-                        <div className="service" style={{paddingTop: "40px"}} key={k}>
-                            <div className="itext"><span>{i.ctg && i.ctg}</span> Categories</div>
-                            {i.data.map((p, l) => 
-                                <div className="sbox" key={l} onClick={() => navigate(`/product/${p.ctg}`)}  style={{borderRight : `2px solid ${p.color}`}}>
-                                    <div className="image-container" style={{backgroundColor : `${p.color}`}}>
-                                        {p.img && <LazyLoadImage src={p.img} className="simg" loading="lazy" effect="blur"/>}
-                                    </div>
-                                    <div className="text-container">
-                                        <h3>{p.title}</h3>
-                                        <p>{p.text}</p>
-                                        <div className="wrapdet">{p.pricing && p.pricing.map((s, l) => {return(<div key={l}>{s}</div>)})}</div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )
-                }))}
-            </div>
-            }
+            {(path == '/products') && <Dashboard/>}
             
         </div>
     )
