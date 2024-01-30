@@ -36,7 +36,7 @@ const Products = () => {
     return (
         <>
         {(status !== 200) && (
-            <div style={{marginTop: '70px'}}>
+            <div style={{marginTop: '100px'}}>
                 <Handle status={status}/>
             </div>
         )}
