@@ -6,11 +6,19 @@ import "../style/sidebar.css"
 const Sidebar = () => {
 
     const context = useContext(Context)
+    const token = sessionStorage.getItem('token')
 
     const hideSidebar = () => {
         if (document.querySelector('.sidebar').classList.contains('show')) {
             document.querySelector('.sidebar').classList.remove('show')
         }
+    }
+
+    const logout = async () => {
+        const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+        sessionStorage.removeItem('token')
+        swalert(response.data)
+        .then((res) => res.dismiss && location.reload())
     }
 
     return (
@@ -36,11 +44,11 @@ const Sidebar = () => {
                 </div>
 
                 <div className="botside">
-                    {(context.token) ? 
+                    {(token !== 'undefined') ? 
                     <>
-                    <NavLink className={a => (a.isActive) ? "sidelist" : "sidelist"} to="/profile">
-                        <div className="fa-solid fa-user fa-xl"/>
-                        <div className="sidetext">Account</div>
+                    <NavLink onClick={() => logout()} className={a => (a.isActive) ? "sidelist" : "sidelist"} >
+                        <div className="fa-solid fa-right-from-bracket fa-xl"/>
+                        <div className="sidetext">Log out</div>
                     </NavLink>
                     </>
                     : 
