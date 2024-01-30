@@ -72,7 +72,7 @@ const Navbar = ({ count }) => {
           <NavLink className="menu" to="/about">About</NavLink> 
         </div>
         <div className="nav-user">
-          {(token) ? 
+          {(token !== 'undefined') ? 
           <div className="button" onClick={() => logout()}>
             <div className="fa solid fa-right-from-bracket" />
           </div>
