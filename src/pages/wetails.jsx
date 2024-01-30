@@ -22,7 +22,6 @@ const Wetails = () => {
     const token = sessionStorage.getItem('token')
 
     const img = data.map((i) => { return i.img })
-    const vxpwd = sessionStorage.getItem("vxpwd")
 
     const confirm = async () => {
         try {
@@ -40,7 +39,9 @@ const Wetails = () => {
     const reject = async () => {
         try {
             setLoading(true)
-            const response = await axios.get(`${import.meta.env.VITE_API}/product/reject/${vid}`,{ headers: { "author" : vxpwd } })
+            const response = await axios.get(`${import.meta.env.VITE_API}/product/reject/${vid}`,{
+                headers: { authorization: `bearer ${token}` }
+            })
             swalert(response.data, "success", 1500)
             .then(() => location.href = '/products')
         }   catch (error) {
@@ -57,17 +58,17 @@ const Wetails = () => {
             if (!response.data.length) return setStatus(404)
             setData(response.data)
         }   catch (error) {
-            if (error || error.response) return swalert(error.response.data).then(() => location.href = '/login')
+            if (error || error.response) return setStatus(404)
         }   finally { setLoading(false) }
     }
       
     useEffect(() => getData(), [])
     if (loading) return <Loading/>
-    if (status !== 200) return <Handle/>
+    if (status !== 200) return <Handle status={status}/>
 
     return (
         <div className='page-max'>
-            <div className="back" onClick={() => navigate('/products')}>
+            <div className="back" onClick={() => navigate(-1)}>
                 <div className="fa-solid fa-arrow-left fa-xl active"></div>
                 <div className="nav-logo" style={{fontFamily: 'var(--caveat)'}}>Vixcera</div>
             </div>

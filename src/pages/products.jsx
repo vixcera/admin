@@ -2,6 +2,7 @@ import axios from 'axios'
 import Navbar from "../components/navbar"
 import Swaload from "../../utils/swaload"
 import swalert from '../../utils/swalert'
+import Handle from '../../service/handle'
 import convertPrice from '../../utils/price'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +17,7 @@ const Products = () => {
     const navigate = useNavigate()
     const [ data, setData ] = useState([])
     const [ loading, setLoading ] = useState(false)
-    const [ error, setError ] = useState(false)
+    const [ status, setStatus ] = useState(200)
     const token = sessionStorage.getItem('token')
     
     const checkAdmin = async () => {
@@ -25,10 +26,10 @@ const Products = () => {
             const response = await axios.get(`${import.meta.env.VITE_API}/waitinglist`,{
                 headers: { "authorization": `bearer ${token}` }
             })
+            if (!response.data.length) return setStatus(404)
             setData(response.data)
         } catch (error) {
-            swalert(error.response)
-            .then((res) => res.dismiss && navigate('/login'))
+            if (error || error.response) return setStatus(404)
         } finally {setLoading(false)}
     };
 
@@ -37,6 +38,7 @@ const Products = () => {
     return (
         <div className='product-page'>
             <div className='product-container'>
+                {(status !== 200) && (<Handle status={status}/>)}
                 {(loading) ? (<Swaload.Product/>) : 
                 data.map((i, k) => {
                         return(
