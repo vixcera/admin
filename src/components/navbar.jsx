@@ -72,7 +72,6 @@ const Navbar = () => {
         <div className="nav-user-mobile">
           <div style={{ position: 'relative' }}>
             <div className="i fa-solid fa-bell fa-xl"/>
-            {(count != 0) && <div className="count">{count}</div>}
           </div>
           <div className="i fa-solid fa-qrcode fa-xl" onClick={() => handleSidebar()} style={{fontSize : "28px"}}/>
         </div>
