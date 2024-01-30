@@ -2,6 +2,8 @@ import { useContext } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import ScaleLoader from "react-spinners/ScaleLoader"
 import Context from "../../utils/context"
+import axios from "axios"
+import swalert from "../../utils/swalert"
 import "../style/navbar.css"
 
 const Navbar = ({ count }) => {
@@ -9,6 +11,7 @@ const Navbar = ({ count }) => {
   const navigate = useNavigate()
   const context = useContext(Context)
   const transaction_mode = localStorage.getItem('transaction_mode')
+  const token = sessionStorage.getItem('token')
 
   window.onscroll = () => {
       let y = window.scrollY
@@ -45,6 +48,12 @@ const Navbar = ({ count }) => {
     sidebar.classList.toggle('show')
   }
 
+  const logout = async () => {
+    const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+    swalert(response.data)
+    .then((res) => res.dismiss && location.reload())
+  }
+
   return (
     <div className="navbar-container">
       <div className='navbar'>
@@ -62,8 +71,10 @@ const Navbar = ({ count }) => {
           <NavLink className="menu" to="/about">About</NavLink> 
         </div>
         <div className="nav-user">
-          {(transaction_mode) ? 
-          <NavLink className='button' onClick={() => showNotification()}><div style={{color: 'var(--background)'}} className="i fa-solid fa-bell fa-xl"/></NavLink>
+          {(token) ? 
+          <div className="button">
+            <div className="fa solid fa-right-from-brakcet" />
+          </div>
           : 
           <NavLink className="button" to="/login">Sign in</NavLink>
           }
