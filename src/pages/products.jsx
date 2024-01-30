@@ -1,7 +1,5 @@
 import axios from 'axios'
-import Navbar from "../components/navbar"
 import Swaload from "../../utils/swaload"
-import swalert from '../../utils/swalert'
 import Handle from '../../service/handle'
 import convertPrice from '../../utils/price'
 import { useEffect, useState } from 'react'
@@ -37,7 +35,11 @@ const Products = () => {
 
     return (
         <>
-        {(status !== 200) && (<Handle status={status}/>)}
+        {(status !== 200) && (
+            <div style={{marginTop: '40px'}}>
+                <Handle status={status}/>
+            </div>
+        )}
         <div className='product-page'>
             <div className='product-container'>
                 {(loading) ? (<Swaload.Product/>) : 
