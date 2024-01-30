@@ -1,6 +1,7 @@
 import axios from "axios"
 import swal from "sweetalert2"
 import Loading from "../../utils/loading"
+import Handle from "../../service/handle"
 import swalert from "../../utils/swalert"
 import convertPrice from "../../utils/price"
 
@@ -18,6 +19,7 @@ const Wetails = () => {
     const { vid } = useParams()
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [status, setStatus] = useState(200)
     const token = sessionStorage.getItem('token')
 
     const img = data.map((i) => { return i.img })
@@ -47,52 +49,22 @@ const Wetails = () => {
         }   finally { setLoading(false) }
     }
 
-    const checkAdmin = async () => {
-        if (vxpwd) {
-            try {
-                setLoading(true)
-                const response = await axios.get(`${import.meta.env.VITE_API}/waiting/vid/${vid}`,{ headers: { "author" : vxpwd } })
-                if (!response.data.length) return swalert("product data is empty!").then(() => location.href = '/')
-                setData(response.data)
-            }   catch (error) {
-                if (error || error.response) return swalert(error.response.data).then(() => location.href = '/')
-            }   finally { setLoading(false) }
-        } else {
-            const result = await swal.fire({
-                icon : 'question',
-                input: 'password',
-                inputValue : vxpwd? vxpwd : '',
-                inputPlaceholder: 'enter your password',
-                confirmButtonText : "confirm",
-                showCancelButton: true,
-                background: 'var(--primary)',
-                color: 'var(--blue)',
-                preConfirm: async (password) => {
-                if (!password) {
-                  swal.showValidationMessage('password is required');
-                  return false;
-                }
-          
-                try {
-                  const response = await axios.get(`${import.meta.env.VITE_API}/waiting/vid/${vid}`,{ headers: { "author" : password } });
-                  setData(response.data);
-                  sessionStorage.setItem('vxpwd', password);
-                  return true;
-                } catch (error) {
-                    if (error || error.response) {
-                        swal.showValidationMessage('invalid password');
-                        return false;
-                    }
-                }
-              },
-            });
-            if (result.dismiss || result.isDenied) return location.href = '/'
-        }
-
-      };
+    const getData = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get(`${import.meta.env.VITE_API}/waiting/vid/${vid}`,{
+                headers: { authorization: `bearer ${token}` }
+            })
+            if (!response.data.length) return setStatus(404)
+            setData(response.data)
+        }   catch (error) {
+            if (error || error.response) return swalert(error.response.data).then(() => location.href = '/login')
+        }   finally { setLoading(false) }
+    }
       
     useEffect(() => checkAdmin(), [])
     if (loading) return <Loading/>
+    if (status !== 200) return <Handle/>
 
     return (
         <div className='page-max'>

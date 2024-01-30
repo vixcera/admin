@@ -14,7 +14,7 @@ const Routing = () => {
 
   const axtoken = axios.create()
   
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(localStorage.getItem('token'))
   const [email, setEmail] = useState('')
   const [expires, setExpires] = useState('')
   const [loading, setLoading] = useState(false)
@@ -52,8 +52,8 @@ const Routing = () => {
     <Context.Provider value={context}>
       <Router>
         <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="/waiting/details/:vid" element={<Wetails/>}/>
         </Routes>
       </Router>
