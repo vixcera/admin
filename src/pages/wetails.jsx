@@ -1,5 +1,4 @@
 import axios from "axios"
-import swal from "sweetalert2"
 import Loading from "../../utils/loading"
 import Handle from "../../service/handle"
 import swalert from "../../utils/swalert"
@@ -62,7 +61,7 @@ const Wetails = () => {
         }   finally { setLoading(false) }
     }
       
-    useEffect(() => checkAdmin(), [])
+    useEffect(() => getData(), [])
     if (loading) return <Loading/>
     if (status !== 200) return <Handle/>
 

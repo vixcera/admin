@@ -1,11 +1,11 @@
 import axios from 'axios'
+import Navbar from "../components/navbar"
 import Loading from '../../utils/loading'
 import swalert from '../../utils/swalert'
 import convertPrice from '../../utils/price'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {LazyLoadImage} from "react-lazy-load-image-component"
-import Navbar from "../components/navbar"
 import "../style/create.css"
 import "../style/content.css"
 import "../style/product.css"
@@ -34,7 +34,7 @@ const Dashboard = () => {
     if (loading) return <Loading/>
 
     return (
-        <div className='page-max' style={{flexDirection: 'column', gap: '30px', justifyContent: 'unset'}}>
+        <div className='page-max' style={{flexDirection: 'column', justifyContent: 'unset'}}>
             <Navbar/>
             <div className='product-page'>
                 <div className='product-container'>
