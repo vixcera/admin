@@ -72,8 +72,8 @@ const Navbar = ({ count }) => {
         </div>
         <div className="nav-user">
           {(token) ? 
-          <div className="button">
-            <div className="fa solid fa-right-from-brakcet" />
+          <div className="button" onClick={() => logout()}>
+            <div className="fa solid fa-right-from-bracket" />
           </div>
           : 
           <NavLink className="button" to="/login">Sign in</NavLink>
