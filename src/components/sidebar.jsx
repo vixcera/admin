@@ -2,6 +2,7 @@ import Context from "../../utils/context"
 import swalert from "../../utils/swalert"
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
+import axios from "axios"
 import "../style/sidebar.css"
 
 const Sidebar = () => {
