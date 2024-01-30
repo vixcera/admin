@@ -25,7 +25,7 @@ const Dashboard = () => {
             setData(response.data)
         } catch (error) {
             swalert(error.response)
-            .then((res) => res.dismiss && navigate('/'))
+            .then((res) => res.dismiss && navigate('/login'))
         }
     };
 
