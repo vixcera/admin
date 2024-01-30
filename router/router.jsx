@@ -45,7 +45,7 @@ const Routing = () => {
 
   useEffect(() => {
       context.setLoading(true)
-      axios.get(`${import.meta.env.VITE_API}/vxrft`)
+      axios.get(`${import.meta.env.VITE_API}/vxadm`)
       .then((response) => setToken(response.data.token))
       .then(() => checkvxsrf())
       .catch((error) => {console.log(error.message)})
