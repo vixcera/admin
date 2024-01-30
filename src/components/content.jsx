@@ -1,10 +1,9 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import Products from "../pages/products"
-import swalert from "../../utils/swalert"
+import Handle from "../../service/handle"
 import Context from "../../utils/context"
-import axios from "axios"
 import "../style/content.css"
 
 const Content = ({data, setData, setCount}) => {
@@ -40,8 +39,8 @@ const Content = ({data, setData, setCount}) => {
                     </div>
                 }
             </div>
-            {(path == '/') && <div/>}
-            {(path == '/about') && <div/>}
+            {(path == '/') && <Handle status={404}/>}
+            {(path == '/about') && <Handle status={404}/>}
             {(path == '/products') && <Products/>}
             
         </div>

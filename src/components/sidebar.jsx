@@ -1,4 +1,5 @@
 import Context from "../../utils/context"
+import swalert from "../../utils/swalert"
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
 import "../style/sidebar.css"
@@ -17,7 +18,7 @@ const Sidebar = () => {
     const logout = async () => {
         const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
         sessionStorage.removeItem('token')
-        swalert(response.data)
+        swalert(response.data, "success")
         .then((res) => res.dismiss && location.reload())
     }
 
