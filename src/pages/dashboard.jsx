@@ -8,7 +8,7 @@ import {LazyLoadImage} from "react-lazy-load-image-component"
 import "../style/create.css"
 import "../style/content.css"
 import "../style/product.css"
-import "../style/"
+import "../style/main.css"
 
 const Dashboard = () => {
 
