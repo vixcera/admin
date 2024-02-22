@@ -1,12 +1,15 @@
 import Context from "../../utils/context"
 import swalert from "../../utils/swalert"
+import Loading from "../../utils/loading"
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
+import { useState } from "react"
 import axios from "axios"
 import "../style/sidebar.css"
 
 const Sidebar = () => {
 
+    const [loading, setLoading] = useState(false)
     const context = useContext(Context)
     const token = sessionStorage.getItem('token')
 
@@ -17,11 +20,20 @@ const Sidebar = () => {
     }
 
     const logout = async () => {
-        const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
-        sessionStorage.removeItem('token')
-        swalert(response.data, "success")
-        .then((res) => res.dismiss && location.reload())
+        try {
+            setLoading(true)
+            const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+            sessionStorage.removeItem('token')
+            swalert(response.data, "success")
+            .then((res) => res.dismiss && location.reload())
+        } catch (error) {
+            return false;
+        } finally {
+            setLoading(false)
+        }
     }
+
+    if (loading) return <Loading/>
 
     return (
         <div className="sidebar" onClick={() => hideSidebar()}>

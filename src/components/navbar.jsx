@@ -2,8 +2,10 @@ import { useContext } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import ScaleLoader from "react-spinners/ScaleLoader"
 import Context from "../../utils/context"
-import axios from "axios"
 import swalert from "../../utils/swalert"
+import Loading from "../../utils/loading"
+import { useState } from "react"
+import axios from "axios"
 import "../style/navbar.css"
 
 const Navbar = () => {
@@ -12,6 +14,7 @@ const Navbar = () => {
   const context = useContext(Context)
   const transaction_mode = localStorage.getItem('transaction_mode')
   const token = sessionStorage.getItem('token')
+  const [loading, setLoading] = useState(false)
 
   window.onscroll = () => {
       let y = window.scrollY
@@ -38,11 +41,20 @@ const Navbar = () => {
   }
 
   const logout = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
-    sessionStorage.removeItem('token')
-    swalert(response.data, "success")
-    .then((res) => res.dismiss && location.reload())
+    try {
+        setLoading(true)
+        const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+        sessionStorage.removeItem('token')
+        swalert(response.data, "success")
+        .then((res) => res.dismiss && location.reload())
+    } catch (error) {
+        return false;
+    } finally {
+        setLoading(false)
+    }
   }
+
+  if (loading) return <Loading/>
 
   return (
     <div className="navbar-container">
