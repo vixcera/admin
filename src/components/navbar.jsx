@@ -43,7 +43,7 @@ const Navbar = () => {
   const logout = async () => {
     try {
         setLoading(true)
-        const response = await axios.get(`${import.meta.env.VITE_API}/logout`)
+        const response = await axios.get(`${import.meta.env.VITE_API}/logout/admin`)
         sessionStorage.removeItem('token')
         swalert(response.data, "success")
         .then((res) => res.dismiss && location.reload())
